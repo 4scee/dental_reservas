@@ -17,6 +17,7 @@ class Reserva(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     fecha = db.Column(db.String(50), nullable=False)
     hora = db.Column(db.String(50), nullable=False)
+    servicio = db.Column(db.String(50), nullable=False)
 
 # Modelo de usuario (para login)
 class Usuario(db.Model):
