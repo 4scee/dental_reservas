@@ -4,13 +4,13 @@ import os
 
 app = Flask(__name__)
 
-# Conexión a PostgreSQL usando variable de entorno DATABASE_URL (Railway)
+# Conexión a PostgreSQL (Railway crea automáticamente DATABASE_URL)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///local.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Modelo de reservas
+# Modelo para reservas
 class Reserva(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
@@ -18,7 +18,7 @@ class Reserva(db.Model):
     hora = db.Column(db.String(10), nullable=False)
     servicio = db.Column(db.String(100), nullable=False)
 
-# Crear tablas automáticamente si no existen
+# Crear tablas
 with app.app_context():
     db.create_all()
 
@@ -41,13 +41,6 @@ def reservas():
     reservas = Reserva.query.order_by(Reserva.fecha, Reserva.hora).all()
     return render_template('reservas.html', reservas=reservas)
 
-@app.route('/eliminar/<int:id>')
-def eliminar(id):
-    reserva = Reserva.query.get_or_404(id)
-    db.session.delete(reserva)
-    db.session.commit()
-    return redirect('/reservas')
-
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
     reserva = Reserva.query.get_or_404(id)
@@ -60,5 +53,12 @@ def editar(id):
         return redirect('/reservas')
     return render_template('editar.html', reserva=reserva)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+@app.route('/eliminar/<int:id>')
+def eliminar(id):
+    reserva = Reserva.query.get_or_404(id)
+    db.session.delete(reserva)
+    db.session.commit()
+    return redirect('/reservas')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
