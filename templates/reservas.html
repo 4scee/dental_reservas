@@ -2,25 +2,41 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Reservar cita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar cita - Laboratorio Dental</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Reserva tu cita</h1>
-        <form method="POST">
-            <label>Nombre completo:</label>
-            <input type="text" name="nombre" required>
 
-            <label>Fecha:</label>
-            <input type="date" name="fecha" required>
+<div class="container">
+    <h1>Reserva tu cita</h1>
 
-            <label>Hora:</label>
-            <input type="time" name="hora" required>
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
-            <button type="submit" class="btn">Confirmar reserva</button>
-        </form>
-        <a href="/" class="back">← Volver al inicio</a>
-    </div>
+    <form method="POST">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
+
+        <button type="submit" class="btn">Confirmar reserva</button>
+    </form>
+
+    <a href="/" class="back">← Volver al inicio</a>
+</div>
+
 </body>
 </html>
