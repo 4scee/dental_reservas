@@ -2,19 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Reserva</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Editar Reserva</h2>
-    <form method="POST">
-        <input type="text" name="nombre" value="{{ reserva['nombre'] }}" required>
-        <input type="date" name="fecha" value="{{ reserva['fecha'] }}" required>
-        <input type="time" name="hora" value="{{ reserva['hora'] }}" required>
-        <input type="text" name="servicio" value="{{ reserva['servicio'] }}" required>
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <a href="/reservas">Volver</a>
+    <div class="container">
+        <h1>Editar Reserva</h1>
+        <form method="POST">
+            <input type="text" name="nombre" value="{{ reserva.nombre }}" required>
+            <input type="date" name="fecha" value="{{ reserva.fecha }}" required>
+            <input type="time" name="hora" value="{{ reserva.hora }}" required>
+            <input type="text" name="servicio" value="{{ reserva.servicio }}" required>
+            <button type="submit" class="btn">Actualizar</button>
+        </form>
+        <a href="/reservas" class="btn-back">Volver</a>
+    </div>
 </body>
 </html>
+
