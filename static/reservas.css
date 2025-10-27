@@ -1,158 +1,114 @@
-/* Estilos generales */
+/* --- Estilos generales --- */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #f0f4f8;
-    color: #333;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+h1, h2 {
+    text-align: center;
+    color: #007bff;
 }
 
-/* Contenedor principal */
-.container {
-    max-width: 750px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+/* --- Mensajes flash --- */
+.flash-messages {
+    margin: 20px 0;
+    text-align: center;
+}
+.flash-messages p {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.flash-messages .success { background-color: #d4edda; color: #155724; }
+.flash-messages .error { background-color: #f8d7da; color: #721c24; }
+.flash-messages .info { background-color: #d1ecf1; color: #0c5460; }
+
+/* --- Formulario --- */
+form {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+form .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+form .btn:hover {
+    background-color: #0056b3;
+}
+.back {
+    display: block;
+    margin-top: 10px;
     text-align: center;
 }
 
-/* Títulos */
-h1, h2 {
-    color: #0077b6;
-    margin-bottom: 1rem;
-}
-
-/* Labels e Inputs */
-label {
-    display: block;
-    text-align: left;
-    margin-top: 1rem;
-    font-weight: 500;
-}
-
-input {
-    width: 100%;
-    padding: 0.7rem;
-    margin-top: 0.3rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1rem;
-}
-
-input:focus {
-    outline: none;
-    border-color: #00b4d8;
-    box-shadow: 0 0 5px rgba(0,180,216,0.3);
-}
-
-/* Botón principal */
-.btn {
-    margin-top: 1.5rem;
-    width: 100%;
-    padding: 0.8rem;
-    background: #00b4d8;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn:hover {
-    background: #0096c7;
-}
-
-/* Link de volver */
-.back {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #0077b6;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.back:hover {
-    text-decoration: underline;
-}
-
-/* Flash messages */
-.flash-messages p {
-    margin-top: 1rem;
-    padding: 0.5rem;
-    border-radius: 10px;
-}
-
-.flash-messages .success { background: #d4edda; color: #155724; }
-.flash-messages .error { background: #f8d7da; color: #721c24; }
-.flash-messages .info { background: #cce5ff; color: #004085; }
-
-/* Galería de imágenes de trabajos */
-.galeria-trabajos {
-    margin-top: 2rem;
-}
-
-.imagenes-trabajos {
+/* --- Galería de imágenes --- */
+.galeria-trabajos .imagenes-trabajos {
     display: flex;
     flex-wrap: wrap;
+    gap: 15px;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+}
+.galeria-trabajos .imagenes-trabajos img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.imagenes-trabajos img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: transform 0.3s;
-}
-
-.imagenes-trabajos img:hover {
-    transform: scale(1.05);
-}
-
-/* Videos de trabajos */
-.videos-trabajos video {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 12px;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-    .container {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-
-    .imagenes-trabajos img {
-        width: 90%;
-        height: auto;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.4rem;
-    }
-}
+/* --- Videos --- */
 .video-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
     height: 0;
     overflow: hidden;
     max-width: 100%;
+    margin: 20px 0;
 }
-
 .video-container iframe {
     position: absolute;
     top:0;
-    left: 0;
+    left:0;
     width: 100%;
     height: 100%;
+    border-radius: 10px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    form input, form select, form .btn {
+        font-size: 0.9em;
+    }
+    .video-container {
+        padding-bottom: 75%;
+    }
 }
