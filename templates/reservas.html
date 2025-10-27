@@ -2,49 +2,44 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas</title>
+    <title>Gestión de Reservas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Agregar Reserva</h2>
-    <form method="POST">
-        <input type="text" name="nombre" placeholder="Nombre del paciente" required>
-        <input type="date" name="fecha" required>
-        <input type="time" name="hora" required>
-        <input type="text" name="servicio" placeholder="Servicio" required>
-        <button type="submit">Agregar</button>
-    </form>
+    <div class="container">
+        <h1>Gestión de Reservas</h1>
 
-    <h2>Lista de Reservas</h2>
-    <table>
-        <thead>
+        <form method="POST">
+            <input type="text" name="nombre" placeholder="Nombre del paciente" required>
+            <input type="date" name="fecha" required>
+            <input type="time" name="hora" required>
+            <input type="text" name="servicio" placeholder="Tipo de servicio" required>
+            <button type="submit" class="btn">Guardar Reserva</button>
+        </form>
+
+        <h2>Reservas Registradas</h2>
+        <table>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Servicio</th>
                 <th>Acciones</th>
             </tr>
-        </thead>
-        <tbody>
-            {% for reserva in reservas %}
+            {% for r in reservas %}
             <tr>
-                <td>{{ reserva['id'] }}</td>
-                <td>{{ reserva['nombre'] }}</td>
-                <td>{{ reserva['fecha'] }}</td>
-                <td>{{ reserva['hora'] }}</td>
-                <td>{{ reserva['servicio'] }}</td>
+                <td>{{ r.nombre }}</td>
+                <td>{{ r.fecha }}</td>
+                <td>{{ r.hora }}</td>
+                <td>{{ r.servicio }}</td>
                 <td>
-                    <a href="/editar/{{ reserva['id'] }}">Editar</a> | 
-                    <a href="/eliminar/{{ reserva['id'] }}">Eliminar</a>
+                    <a href="/editar/{{ r.id }}" class="btn-edit">Editar</a>
+                    <a href="/eliminar/{{ r.id }}" class="btn-delete">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="/">Volver al inicio</a>
+        </table>
+        <a href="/" class="btn-back">Volver al inicio</a>
+    </div>
 </body>
 </html>
