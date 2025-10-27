@@ -24,27 +24,27 @@
     {% endwith %}
 
     <!-- Formulario de reserva -->
-   <form method="POST">
-    <label for="nombre">Nombre completo:</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+    <form method="POST">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
 
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" required>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
 
-    <label for="hora">Hora:</label>
-    <input type="time" id="hora" name="hora" required>
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
 
-    <label for="servicio">Servicio:</label>
-    <select id="servicio" name="servicio" required>
-        <option value="">-- Selecciona un servicio --</option>
-        <option value="Limpieza">Limpieza</option>
-        <option value="Blanqueamiento">Blanqueamiento</option>
-        <option value="Ortodoncia">Ortodoncia</option>
-        <option value="Revisión general">Revisión general</option>
-    </select>
+        <label for="servicio">Servicio:</label>
+        <select id="servicio" name="servicio" required>
+            <option value="">-- Selecciona un servicio --</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Blanqueamiento">Blanqueamiento</option>
+            <option value="Ortodoncia">Ortodoncia</option>
+            <option value="Revisión general">Revisión general</option>
+        </select>
 
-    <button type="submit" class="btn">Confirmar reserva</button>
-</form>
+        <button type="submit" class="btn">Confirmar reserva</button>
+    </form>
 
     <a href="/" class="back">← Volver al inicio</a>
 
@@ -52,28 +52,25 @@
     <section class="galeria-trabajos">
         <h2>Galería de trabajos</h2>
         <div class="imagenes-trabajos">
-            <img src="https://pixabay.com/photos/dental-crowns-technician-teeth-4610112/" alt="Trabajo dental 1">
-            <img src="https://pixabay.com/photos/dentist-patient-dental-care-medical-428646/" alt="Trabajo dental 2">
-            <img src="https://pixabay.com/photos/orthodontic-aids-mouth-guard-315784/" alt="Trabajo dental 3">
+            <img src="https://cdn.pixabay.com/photo/2019/08/07/12/22/dental-4381041_1280.jpg" alt="Trabajo dental 1">
+            <img src="https://cdn.pixabay.com/photo/2016/11/22/19/33/dentist-1851748_1280.jpg" alt="Trabajo dental 2">
+            <img src="https://cdn.pixabay.com/photo/2020/06/02/07/09/dentist-5251485_1280.jpg" alt="Trabajo dental 3">
         </div>
 
         <!-- Videos -->
-      <div class="video-container">
-    <iframe width="560" height="315" 
-        src="https://youtu.be/8F56cT21ai0?si=LsnBzGArABnPgj-6" 
-        title="Video dental" frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
-      </div>
-<div class="video-container">
-    <iframe width="560" height="315" 
-        src="https://youtu.be/PfmkYPU2A-0?si=yKFYhUJ31AZyyjbB" 
-        title="Video dental" frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
-</div> 
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/8F56cT21ai0" 
+                    title="Video dental 1" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/PfmkYPU2A-0" 
+                    title="Video dental 2" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
         </div>
     </section>
 
