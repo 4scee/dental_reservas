@@ -2,59 +2,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Laboratorio Dental - Reservas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Dental - Inicio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-    <!-- 🎥 Video de fondo -->
-    <video autoplay muted loop id="bg-video">
-        <source src="https://cdn.pixabay.com/video/2023/09/02/180243-864694591_large.mp4" type="video/mp4">
-        Tu navegador no soporta videos HTML5.
+
+<header class="navbar">
+    <h1 class="logo">Laboratorio Dental</h1>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/reservas">Reservar Cita</a>
+        <a href="/login">Administración</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <video autoplay muted loop class="video-fondo">
+        <source src="{{ url_for('static', filename='media/video.mp4') }}" type="video/mp4">
+        Tu navegador no soporta video HTML5.
     </video>
-
-    <div class="overlay"></div>
-
-    <div class="container">
-        <header>
-            <h1>Laboratorio Dental</h1>
-            <p class="subtitle">Creando sonrisas perfectas con tecnología avanzada</p>
-        </header>
-
-        <main>
-            <a href="/reservas" class="btn">Reservar una cita</a>
-        </main>
-
-        <section class="media-section">
-            <h2>Conéctate con nosotros</h2>
-            <div class="social-links">
-                <a href="https://wa.me/5215555555555" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://maps.google.com/?q=laboratorio+dental" target="_blank" title="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
-                <a href="mailto:contacto@laboratoriodental.com" title="Correo"><i class="fas fa-envelope"></i></a>
-                <a href="https://drive.google.com" target="_blank" title="Google Drive"><i class="fab fa-google-drive"></i></a>
-                <a href="https://www.instagram.com/laboratoriodental" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/laboratoriodental" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            </div>
-        </section>
-
-        <section class="video-gallery">
-            <h2>Conoce nuestro trabajo</h2>
-            <div class="videos">
-                <video controls poster="https://images.unsplash.com/photo-1588776814546-1ffcf47267a0?w=800">
-                    <source src="https://cdn.pixabay.com/video/2022/04/08/112434-698194022_large.mp4" type="video/mp4">
-                </video>
-                <video controls poster="https://images.unsplash.com/photo-1598257006626-48b0c252070d?w=800">
-                    <source src="https://cdn.pixabay.com/video/2023/02/08/152684-797749038_large.mp4" type="video/mp4">
-                </video>
-                <video controls poster="https://images.unsplash.com/photo-1597404284265-30c8e4f90d57?w=800">
-                    <source src="https://cdn.pixabay.com/video/2024/03/22/207492-914212115_large.mp4" type="video/mp4">
-                </video>
-            </div>
-        </section>
-
-        <footer>
-            <p>&copy; 2025 Laboratorio Dental. Todos los derechos reservados.</p>
-        </footer>
+    <div class="overlay">
+        <h2>Sonrisas Perfectas, Resultados Profesionales</h2>
+        <a href="/reservas" class="btn">Agendar Cita</a>
     </div>
+</section>
+
+<section class="about">
+    <h2>¿Quiénes Somos?</h2>
+    <p>Somos un laboratorio dental comprometido con la estética, salud y bienestar bucal. Contamos con tecnología avanzada y especialistas certificados.</p>
+</section>
+
+<section class="galeria">
+    <h2>Galería de Trabajos</h2>
+    <div class="imagenes">
+        <img src="{{ url_for('static', filename='media/trabajo1.jpg') }}" alt="Diseño dental 1">
+        <img src="{{ url_for('static', filename='media/trabajo2.jpg') }}" alt="Diseño dental 2">
+    </div>
+</section>
+
+<section class="servicios-nube">
+    <h2>Servicios en la Nube</h2>
+    <p>Accede a nuestros medios digitales desde cualquier lugar:</p>
+    <div class="enlaces">
+        <a href="https://www.youtube.com/@dentalclinic" target="_blank">YouTube</a>
+        <a href="https://www.instagram.com/lab_dental" target="_blank">Instagram</a>
+        <a href="https://drive.google.com" target="_blank">Google Drive</a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Laboratorio Dental | Todos los derechos reservados</p>
+</footer>
+
 </body>
 </html>
