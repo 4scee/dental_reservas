@@ -44,18 +44,18 @@ def reservas():
         nombre = request.form.get('nombre')
         fecha = request.form.get('fecha')
         hora = request.form.get('hora')
+        servicio = request.form.get('servicio')  # nuevo campo
 
-        # Validación simple
-        if not nombre or not fecha or not hora:
+        if not nombre or not fecha or not hora or not servicio:
             flash("Por favor completa todos los campos", "error")
             return redirect(url_for('reservas'))
 
         try:
-            nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora)
+            nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora, servicio=servicio)
             db.session.add(nueva)
             db.session.commit()
             flash('Reserva creada con éxito.', 'success')
-            return redirect(url_for('reservas'))  # Mantener en la misma página para mostrar flash
+            return redirect(url_for('reservas'))
         except Exception as e:
             db.session.rollback()
             flash(f"Ocurrió un error al guardar la reserva: {e}", "error")
