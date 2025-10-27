@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+reservas.db
+.vscode/
+.env
+.DS_Store   
