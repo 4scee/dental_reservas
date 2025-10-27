@@ -27,13 +27,44 @@ class Usuario(db.Model):
 
 # Crear tablas
 with app.app_context():
-    db.create_all()
+    db.create_all()  # Crea tablas si no existen
+    
     # Crear usuario admin si no existe
     if not Usuario.query.filter_by(usuario='admin').first():
-        admin = Usuario(usuario='admin', password_hash=generate_password_hash('1234'))
+        admin = Usuario(
+            usuario='admin',
+            password_hash=generate_password_hash(
+                'Adm!n2025#Dental', method='pbkdf2:sha256', salt_length=16
+            )
+        )
         db.session.add(admin)
         db.session.commit()
+        print("Usuario admin creado con contraseña segura.")
+with app.app_context():
+    db.create_all()  # Crea tablas si no existen
 
+    # Usuario admin
+    if not Usuario.query.filter_by(usuario='admin').first():
+        admin = Usuario(
+            usuario='admin',
+            password_hash=generate_password_hash(
+                'Adm!n2025#Dental', method='pbkdf2:sha256', salt_length=16
+            )
+        )
+        db.session.add(admin)
+    
+    # Usuario de prueba
+    if not Usuario.query.filter_by(usuario='test').first():
+        test_user = Usuario(
+            usuario='test',
+            password_hash=generate_password_hash(
+                'prueba123', method='pbkdf2:sha256', salt_length=16
+            )
+        )
+        db.session.add(test_user)
+
+    db.session.commit()
+    print("Usuarios creados: admin y test") 
 @app.route('/')
 def index():
     return render_template('index.html')
