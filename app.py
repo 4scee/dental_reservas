@@ -1,26 +1,37 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
+app.secret_key = "supersecreto123"  # Clave para sesiones
 
-# Conexión a PostgreSQL (Railway crea automáticamente DATABASE_URL)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///local.db')
+# Base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///reservas.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 
-# Modelo para reservas
+# Modelo de reservas
 class Reserva(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    fecha = db.Column(db.String(20), nullable=False)
-    hora = db.Column(db.String(10), nullable=False)
-    servicio = db.Column(db.String(100), nullable=False)
+    fecha = db.Column(db.String(50), nullable=False)
+    hora = db.Column(db.String(50), nullable=False)
+
+# Modelo de usuario (para login)
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    usuario = db.Column(db.String(50), unique=True, nullable=False)
+    password_hash = db.Column(db.String(200), nullable=False)
 
 # Crear tablas
 with app.app_context():
     db.create_all()
+    # Crear usuario admin si no existe
+    if not Usuario.query.filter_by(usuario='admin').first():
+        admin = Usuario(usuario='admin', password_hash=generate_password_hash('1234'))
+        db.session.add(admin)
+        db.session.commit()
 
 @app.route('/')
 def index():
@@ -32,33 +43,53 @@ def reservas():
         nombre = request.form['nombre']
         fecha = request.form['fecha']
         hora = request.form['hora']
-        servicio = request.form['servicio']
-        nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora, servicio=servicio)
+        nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora)
         db.session.add(nueva)
         db.session.commit()
-        return redirect('/reservas')
-    
-    reservas = Reserva.query.order_by(Reserva.fecha, Reserva.hora).all()
-    return render_template('reservas.html', reservas=reservas)
+        flash('Reserva creada con éxito.', 'success')
+        return redirect(url_for('index'))
+    return render_template('reservas.html')
 
-@app.route('/editar/<int:id>', methods=['GET', 'POST'])
-def editar(id):
-    reserva = Reserva.query.get_or_404(id)
+# ---- LOGIN ----
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
-        reserva.nombre = request.form['nombre']
-        reserva.fecha = request.form['fecha']
-        reserva.hora = request.form['hora']
-        reserva.servicio = request.form['servicio']
-        db.session.commit()
-        return redirect('/reservas')
-    return render_template('editar.html', reserva=reserva)
+        usuario = request.form['usuario']
+        password = request.form['password']
+        user = Usuario.query.filter_by(usuario=usuario).first()
+        if user and check_password_hash(user.password_hash, password):
+            session['usuario'] = usuario
+            flash('Bienvenido al panel administrativo.', 'info')
+            return redirect(url_for('admin'))
+        else:
+            flash('Credenciales incorrectas.', 'error')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    flash('Sesión cerrada.', 'info')
+    return redirect(url_for('index'))
+
+# ---- PANEL ADMIN ----
+@app.route('/admin')
+def admin():
+    if 'usuario' not in session:
+        flash('Debes iniciar sesión para acceder al panel.', 'warning')
+        return redirect(url_for('login'))
+    reservas = Reserva.query.all()
+    return render_template('admin.html', reservas=reservas)
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
-    reserva = Reserva.query.get_or_404(id)
-    db.session.delete(reserva)
-    db.session.commit()
-    return redirect('/reservas')
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+    reserva = Reserva.query.get(id)
+    if reserva:
+        db.session.delete(reserva)
+        db.session.commit()
+        flash('Reserva eliminada.', 'info')
+    return redirect(url_for('admin'))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run('0.0.0.0', port=int(os.environ.get("PORT", 5000)))
