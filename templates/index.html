@@ -18,10 +18,15 @@
 </header>
 
 <section class="hero">
-    <video autoplay muted loop class="video-fondo">
-        <source src="{{ url_for('static', filename='media/video.mp4') }}" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-    </video>
+   <div class="video-container">
+    <iframe width="560" height="315" 
+        src="https://youtu.be/F06EWU50_cM?si=4H-z6GiE16wwDmbf" 
+        title="Video dental" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div>
+
     <div class="overlay">
         <h2>Sonrisas Perfectas, Resultados Profesionales</h2>
         <a href="/reservas" class="btn">Agendar Cita</a>
@@ -36,8 +41,8 @@
 <section class="galeria">
     <h2>Galería de Trabajos</h2>
     <div class="imagenes">
-        <img src="https://www.google.com/imgres?q=blanqueamiento%20dental%20imagen%20libre&imgurl=https%3A%2F%2Fbucco.es%2Fwp-content%2Fuploads%2F2020%2F10%2Fblanqueamiento-dental-beneficios-768x414-1.jpg&imgrefurl=https%3A%2F%2Fbucco.es%2Fblog%2Fodontologia-general%2F8-cosas-que-no-sabias-sobre-el-blanqueamiento-dental%2F&docid=C8AMOFgHtvDoDM&tbnid=ngUMsmUfsbJHGM&vet=12ahUKEwj895nKz8OQAxU75skDHXCwDQsQM3oECBcQAA..i&w=768&h=414&hcb=2&ved=2ahUKEwj895nKz8OQAxU75skDHXCwDQsQM3oECBcQAA" alt="Diseño dental 1">
-        <img src="{{ url_for('static', filename='media/trabajo2.jpg') }}" alt="Diseño dental 2">
+        <img src="https://pixabay.com/photos/teeth-cleaning-tooth-repairs-1514692/" alt="Diseño dental 1">
+        <img src="https://pixabay.com/photos/all-on-4-dental-implants-belfast-8378579/" alt="Diseño dental 2">
     </div>
 </section>
 
@@ -45,9 +50,8 @@
     <h2>Servicios en la Nube</h2>
     <p>Accede a nuestros medios digitales desde cualquier lugar:</p>
     <div class="enlaces">
-        <a href="https://www.youtube.com/@dentalclinic" target="_blank">YouTube</a>
+        <a href="https://youtu.be/QcoLMwmtutY?si=bp888_7tyBasmdXt" target="_blank">YouTube</a>
         <a href="https://www.instagram.com/lab_dental" target="_blank">Instagram</a>
-        <a href="https://drive.google.com" target="_blank">Google Drive</a>
     </div>
 </section>
 
