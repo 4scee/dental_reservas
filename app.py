@@ -34,8 +34,10 @@ def reservas():
         fecha = request.form['fecha']
         hora = request.form['hora']
         servicio = request.form['servicio']
-        conn.execute("INSERT INTO reservas (nombre, fecha, hora, servicio) VALUES (?, ?, ?, ?)",
-                     (nombre, fecha, hora, servicio))
+        conn.execute(
+            "INSERT INTO reservas (nombre, fecha, hora, servicio) VALUES (?, ?, ?, ?)",
+            (nombre, fecha, hora, servicio)
+        )
         conn.commit()
         return redirect('/reservas')
     
@@ -60,14 +62,16 @@ def editar(id):
         fecha = request.form['fecha']
         hora = request.form['hora']
         servicio = request.form['servicio']
-        conn.execute("UPDATE reservas SET nombre=?, fecha=?, hora=?, servicio=? WHERE id=?",
-                     (nombre, fecha, hora, servicio, id))
+        conn.execute(
+            "UPDATE reservas SET nombre=?, fecha=?, hora=?, servicio=? WHERE id=?",
+            (nombre, fecha, hora, servicio, id)
+        )
         conn.commit()
         conn.close()
         return redirect('/reservas')
     conn.close()
     return render_template('editar.html', reserva=reserva)
 
+# Esta es la línea correcta para ejecutar Flask en Railway
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
-'0.0.0.0', port=int(os.environ.get("PORT", 5000))
