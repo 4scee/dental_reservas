@@ -1,26 +1,26 @@
 from flask import Flask, render_template, request, redirect
-import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
-DB = "reservas.db"
 
-# Crear DB si no existe
-if not os.path.exists(DB):
-    conn = sqlite3.connect(DB)
-    conn.execute('''CREATE TABLE reservas (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        nombre TEXT NOT NULL,
-                        fecha TEXT NOT NULL,
-                        hora TEXT NOT NULL,
-                        servicio TEXT NOT NULL
-                    )''')
-    conn.close()
+# Conexión a PostgreSQL usando variable de entorno DATABASE_URL (Railway)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///local.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-def get_db_connection():
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
-    return conn
+db = SQLAlchemy(app)
+
+# Modelo de reservas
+class Reserva(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(100), nullable=False)
+    fecha = db.Column(db.String(20), nullable=False)
+    hora = db.Column(db.String(10), nullable=False)
+    servicio = db.Column(db.String(100), nullable=False)
+
+# Crear tablas automáticamente si no existen
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
@@ -28,50 +28,37 @@ def index():
 
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
-    conn = get_db_connection()
     if request.method == 'POST':
         nombre = request.form['nombre']
         fecha = request.form['fecha']
         hora = request.form['hora']
         servicio = request.form['servicio']
-        conn.execute(
-            "INSERT INTO reservas (nombre, fecha, hora, servicio) VALUES (?, ?, ?, ?)",
-            (nombre, fecha, hora, servicio)
-        )
-        conn.commit()
+        nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora, servicio=servicio)
+        db.session.add(nueva)
+        db.session.commit()
         return redirect('/reservas')
     
-    reservas = conn.execute('SELECT * FROM reservas ORDER BY fecha, hora').fetchall()
-    conn.close()
+    reservas = Reserva.query.order_by(Reserva.fecha, Reserva.hora).all()
     return render_template('reservas.html', reservas=reservas)
 
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
-    conn = get_db_connection()
-    conn.execute("DELETE FROM reservas WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
+    reserva = Reserva.query.get_or_404(id)
+    db.session.delete(reserva)
+    db.session.commit()
     return redirect('/reservas')
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
-    conn = get_db_connection()
-    reserva = conn.execute("SELECT * FROM reservas WHERE id=?", (id,)).fetchone()
+    reserva = Reserva.query.get_or_404(id)
     if request.method == 'POST':
-        nombre = request.form['nombre']
-        fecha = request.form['fecha']
-        hora = request.form['hora']
-        servicio = request.form['servicio']
-        conn.execute(
-            "UPDATE reservas SET nombre=?, fecha=?, hora=?, servicio=? WHERE id=?",
-            (nombre, fecha, hora, servicio, id)
-        )
-        conn.commit()
-        conn.close()
+        reserva.nombre = request.form['nombre']
+        reserva.fecha = request.form['fecha']
+        reserva.hora = request.form['hora']
+        reserva.servicio = request.form['servicio']
+        db.session.commit()
         return redirect('/reservas')
-    conn.close()
     return render_template('editar.html', reserva=reserva)
 
-# Esta es la línea correcta para ejecutar Flask en Railway
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
