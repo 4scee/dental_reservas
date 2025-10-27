@@ -1,159 +1,57 @@
-* {
+
+/* --- Estilos generales --- */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
     color: #333;
-    background-color: #f8f9fa;
+    background-color: #f5f5f5;
+}
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.btn:hover {
+    background-color: #0056b3;
 }
 
 /* --- Navbar --- */
-.navbar {
+header.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background: #0077b6;
-    color: white;
-    flex-wrap: wrap;
+    padding: 15px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
-
+.navbar .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #007bff;
+}
 .navbar nav a {
-    margin: 0 1rem;
-    text-decoration: none;
-    color: white;
+    margin-left: 20px;
     font-weight: 500;
 }
 
-.navbar nav a:hover {
-    text-decoration: underline;
-}
-
-/* --- Hero Section --- */
+/* --- Hero con video --- */
 .hero {
     position: relative;
-    width: 100%;
-    height: 80vh;
-    overflow: hidden;
-}
-
-.video-fondo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
     text-align: center;
-    padding: 2rem;
-}
-
-.btn {
-    background: #00b4d8;
-    padding: 0.8rem 1.5rem;
-    color: #fff;
-    border-radius: 10px;
-    text-decoration: none;
-    margin-top: 1rem;
-    transition: background 0.3s;
-}
-
-.btn:hover {
-    background: #0096c7;
-}
-
-/* --- Secciones --- */
-section {
-    padding: 3rem 2rem;
-    text-align: center;
-}
-
-.about p {
-    max-width: 800px;
-    margin: 1rem auto;
-}
-
-/* --- Galería --- */
-.galeria .imagenes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.galeria img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-    transition: transform 0.3s ease;
-}
-
-.galeria img:hover {
-    transform: scale(1.05);
-}
-
-/* --- Enlaces de servicios en la nube --- */
-.servicios-nube .enlaces {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.servicios-nube a {
-    padding: 0.8rem 1.5rem;
-    border: 2px solid #00b4d8;
-    border-radius: 10px;
-    color: #00b4d8;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.servicios-nube a:hover {
-    background: #00b4d8;
     color: white;
-}
-
-/* --- Footer --- */
-footer {
-    background: #023e8a;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-}
-
-/* --- RESPONSIVO --- */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .galeria img {
-        width: 90%;
-        height: auto;
-    }
-
-    .overlay h2 {
-        font-size: 1.5rem;
-        padding: 0 1rem;
-    }
+    margin-bottom: 40px;
 }
 .video-container {
     position: relative;
@@ -162,12 +60,80 @@ footer {
     overflow: hidden;
     max-width: 100%;
 }
-
 .video-container iframe {
     position: absolute;
     top:0;
-    left: 0;
+    left:0;
     width: 100%;
     height: 100%;
 }
+.hero .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.hero .overlay h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
 
+/* --- Secciones --- */
+section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+section h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+section p {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* --- Galería --- */
+.galeria .imagenes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+.galeria .imagenes img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* --- Servicios nube --- */
+.servicios-nube .enlaces {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .navbar nav a {
+        margin-left: 10px;
+        font-size: 0.9em;
+    }
+    .hero .overlay h2 {
+        font-size: 1.5em;
+    }
+}
