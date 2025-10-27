@@ -2,44 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Reservas</title>
+    <title>Reservar cita</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Gestión de Reservas</h1>
-
+        <h1>Reserva tu cita</h1>
         <form method="POST">
-            <input type="text" name="nombre" placeholder="Nombre del paciente" required>
-            <input type="date" name="fecha" required>
-            <input type="time" name="hora" required>
-            <input type="text" name="servicio" placeholder="Tipo de servicio" required>
-            <button type="submit" class="btn">Guardar Reserva</button>
-        </form>
+            <label>Nombre completo:</label>
+            <input type="text" name="nombre" required>
 
-        <h2>Reservas Registradas</h2>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Servicio</th>
-                <th>Acciones</th>
-            </tr>
-            {% for r in reservas %}
-            <tr>
-                <td>{{ r.nombre }}</td>
-                <td>{{ r.fecha }}</td>
-                <td>{{ r.hora }}</td>
-                <td>{{ r.servicio }}</td>
-                <td>
-                    <a href="/editar/{{ r.id }}" class="btn-edit">Editar</a>
-                    <a href="/eliminar/{{ r.id }}" class="btn-delete">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <a href="/" class="btn-back">Volver al inicio</a>
+            <label>Fecha:</label>
+            <input type="date" name="fecha" required>
+
+            <label>Hora:</label>
+            <input type="time" name="hora" required>
+
+            <button type="submit" class="btn">Confirmar reserva</button>
+        </form>
+        <a href="/" class="back">← Volver al inicio</a>
     </div>
 </body>
 </html>
