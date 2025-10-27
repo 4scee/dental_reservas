@@ -1,53 +1,88 @@
-body {
-    font-family: Arial, sans-serif;
+/* Fuente moderna y colores elegantes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-header {
-    background-color: #007bff;
-    color: white;
-    padding: 20px;
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #66c4d4, #2b8bb4);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-nav a {
-    color: white;
-    margin-right: 15px;
+/* Fondo con efecto de brillo sutil */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(255,255,255,0.1), transparent 60%);
+    animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+/* Contenedor principal */
+.container {
+    position: relative;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem 4rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+}
+
+/* Encabezado */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    color: #e8f9ff;
+}
+
+/* Botón elegante */
+.btn {
     text-decoration: none;
+    background: #fff;
+    color: #2b8bb4;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.2);
 }
 
-form input, form button {
-    display: block;
-    margin-bottom: 10px;
-    padding: 8px;
-    width: 100%;
-    max-width: 300px;
+.btn:hover {
+    background: #2b8bb4;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+/* Pie de página */
+footer {
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 700px;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-@media (max-width: 600px) {
-    header, form, table {
-        padding: 10px;
-    }
-}
