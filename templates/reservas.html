@@ -24,18 +24,27 @@
     {% endwith %}
 
     <!-- Formulario de reserva -->
-    <form method="POST">
-        <label for="nombre">Nombre completo:</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+   <form method="POST">
+    <label for="nombre">Nombre completo:</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
 
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" required>
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required>
 
-        <label for="hora">Hora:</label>
-        <input type="time" id="hora" name="hora" required>
+    <label for="hora">Hora:</label>
+    <input type="time" id="hora" name="hora" required>
 
-        <button type="submit" class="btn">Confirmar reserva</button>
-    </form>
+    <label for="servicio">Servicio:</label>
+    <select id="servicio" name="servicio" required>
+        <option value="">-- Selecciona un servicio --</option>
+        <option value="Limpieza">Limpieza</option>
+        <option value="Blanqueamiento">Blanqueamiento</option>
+        <option value="Ortodoncia">Ortodoncia</option>
+        <option value="Revisión general">Revisión general</option>
+    </select>
+
+    <button type="submit" class="btn">Confirmar reserva</button>
+</form>
 
     <a href="/" class="back">← Volver al inicio</a>
 
