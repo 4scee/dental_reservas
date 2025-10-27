@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
-app.secret_key = "supersecreto123"  # Clave para sesiones
+app.secret_key = os.environ.get("SECRET_KEY", "supersecreto123")  # Mejor usar variable de entorno
 
 # Base de datos
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///reservas.db")
@@ -37,25 +37,39 @@ with app.app_context():
 def index():
     return render_template('index.html')
 
+# ---- RUTA RESERVAS ----
 @app.route('/reservas', methods=['GET', 'POST'])
 def reservas():
     if request.method == 'POST':
-        nombre = request.form['nombre']
-        fecha = request.form['fecha']
-        hora = request.form['hora']
-        nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora)
-        db.session.add(nueva)
-        db.session.commit()
-        flash('Reserva creada con éxito.', 'success')
-        return redirect(url_for('index'))
-    return render_template('reservas.html')
+        nombre = request.form.get('nombre')
+        fecha = request.form.get('fecha')
+        hora = request.form.get('hora')
+
+        # Validación simple
+        if not nombre or not fecha or not hora:
+            flash("Por favor completa todos los campos", "error")
+            return redirect(url_for('reservas'))
+
+        try:
+            nueva = Reserva(nombre=nombre, fecha=fecha, hora=hora)
+            db.session.add(nueva)
+            db.session.commit()
+            flash('Reserva creada con éxito.', 'success')
+            return redirect(url_for('reservas'))  # Mantener en la misma página para mostrar flash
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Ocurrió un error al guardar la reserva: {e}", "error")
+            return redirect(url_for('reservas'))
+
+    reservas_lista = Reserva.query.order_by(Reserva.fecha, Reserva.hora).all()
+    return render_template('reservas.html', reservas=reservas_lista)
 
 # ---- LOGIN ----
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        usuario = request.form['usuario']
-        password = request.form['password']
+        usuario = request.form.get('usuario')
+        password = request.form.get('password')
         user = Usuario.query.filter_by(usuario=usuario).first()
         if user and check_password_hash(user.password_hash, password):
             session['usuario'] = usuario
@@ -77,7 +91,7 @@ def admin():
     if 'usuario' not in session:
         flash('Debes iniciar sesión para acceder al panel.', 'warning')
         return redirect(url_for('login'))
-    reservas = Reserva.query.all()
+    reservas = Reserva.query.order_by(Reserva.fecha, Reserva.hora).all()
     return render_template('admin.html', reservas=reservas)
 
 @app.route('/eliminar/<int:id>')
@@ -92,4 +106,4 @@ def eliminar(id):
     return redirect(url_for('admin'))
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
