@@ -52,23 +52,28 @@
     <section class="galeria-trabajos">
         <h2>Galería de trabajos</h2>
         <div class="imagenes-trabajos">
-            <img src="{{ url_for('static', filename='media/trabajo1.jpg') }}" alt="Trabajo dental 1">
-            <img src="{{ url_for('static', filename='media/trabajo2.jpg') }}" alt="Trabajo dental 2">
-            <img src="{{ url_for('static', filename='media/trabajo3.jpg') }}" alt="Trabajo dental 3">
+            <img src="https://pixabay.com/photos/dental-crowns-technician-teeth-4610112/" alt="Trabajo dental 1">
+            <img src="https://pixabay.com/photos/dentist-patient-dental-care-medical-428646/" alt="Trabajo dental 2">
+            <img src="https://pixabay.com/photos/orthodontic-aids-mouth-guard-315784/" alt="Trabajo dental 3">
         </div>
 
         <!-- Videos -->
-        <h2>Videos de procedimientos</h2>
-        <div class="videos-trabajos">
-            <video controls>
-                <source src="{{ url_for('static', filename='media/video1.mp4') }}" type="video/mp4">
-                Tu navegador no soporta video HTML5.
-            </video>
-
-            <video controls>
-                <source src="{{ url_for('static', filename='media/video2.mp4') }}" type="video/mp4">
-                Tu navegador no soporta video HTML5.
-            </video>
+      <div class="video-container">
+    <iframe width="560" height="315" 
+        src="https://youtu.be/8F56cT21ai0?si=LsnBzGArABnPgj-6" 
+        title="Video dental" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+      </div>
+<div class="video-container">
+    <iframe width="560" height="315" 
+        src="https://youtu.be/PfmkYPU2A-0?si=yKFYhUJ31AZyyjbB" 
+        title="Video dental" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div> 
         </div>
     </section>
 
